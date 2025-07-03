@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster2-webserver
+  namespace: cluster2-webserver
+  labels:
+    app: cluster2-webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cluster2-webserver
+  template:
+    metadata:
+      labels:
+        app: cluster2-webserver
+      annotations:
+        proxy.istio.io/config: |
+          proxyMetadata:
+              ISTIO_META_DNS_CAPTURE: "true"
+              ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+    spec:
+      serviceAccountName: cluster2-webserver-service-account
+      containers:
+        - name: cluster2-webserver
+          image: httpd
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
