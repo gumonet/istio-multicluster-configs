@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: cluster2-webserver
   labels:
-    mesh: core-banc365
+    mesh: core-demomesh
     istio-injection: enabled
