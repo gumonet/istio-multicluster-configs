@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cluster1-webserver
+  labels:
+    mesh: core-banc365
+    istio-injection: enabled

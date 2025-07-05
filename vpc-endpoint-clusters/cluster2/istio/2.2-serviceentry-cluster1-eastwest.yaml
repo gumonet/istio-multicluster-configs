@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: eastwestgateway-cluster1
+  namespace: istio-system
+spec:
+  addresses:
+    - 240.0.0.11 # IP virtual arbitraria
+  hosts:
+    - istio-eastwestgateway.istio-system.svc.cluster.local
+  location: MESH_EXTERNAL
+  ports:
+    - number: 15443
+      name: tls
+      protocol: TLS
+  resolution: DNS
+  endpoints:
+    - address: vpce-06da19849fe4bc9d0-t9tt43m9-us-west-2b.vpce-svc-0e6b374b167c0f8f5.us-west-2.vpce.amazonaws.com # ⚠️ Reemplaza con el DNS del endpoint de tu VPC Endpoint Service
+      ports:
+        tls: 15443
